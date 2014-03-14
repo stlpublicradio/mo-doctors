@@ -61,9 +61,11 @@ body,
 
 <div id="map"></div>
 
-<script type="text/javascript" src="doctors_by_zip.js"></script>
+<script type="text/javascript" src="mo_doctors_pop.js"></script>
 
 <script type="text/javascript">
+
+var formatter = d3.format(",.0f");
 
 var northEast = L.latLng(44.878, -78.231),
     southWest = L.latLng(30.78, -106.122),
@@ -84,7 +86,7 @@ info.onAdd = function (map) {
 
 info.update = function (props) {
 	this._div.innerHTML = '<h4>Doctors per ZIP code</h4>' +  (props ?
-		'<b>' + props.ZCTA5CE10 + '</b><br />' + (props.doctors_by_zip_number ? props.doctors_by_zip_number + ' doctor(s) have registered business addresses in this ZIP code.' : 'No doctors have registered business addresses in this ZIP code.' )
+		'<b>' + props.ZCTA5CE10 + '</b><br />' + (props.doctors_by ? props.doctors_by + ' doctor(s) have registered business addresses in this ZIP code.<br />That&apos;s 1 doctor for every ' + formatter(props.pop_by_z_1 / props.doctors_by) + ' people who live there.' : 'No doctors have registered business addresses in this ZIP code.' )
 		: 'Hover over a ZIP code');
 };
 
@@ -105,7 +107,7 @@ function style(feature) {
 		opacity: .6,
 		color: '#eee',
 		fillOpacity: 0.6,
-		fillColor: getColor(feature.properties.doctors_by_zip_number)
+		fillColor: getColor(feature.properties.doctors_by)
 		};
 		}
 		
@@ -164,7 +166,6 @@ legend.onAdd = function (map) {
 	for (var i = 0; i < grades.length; i++) {
 		from = grades[i];
 		to = grades[i + 1];
-console.log(from == 0);
 		labels.push(
 			'<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
 			((from == 0) ? to : (from + 1) + (to ? '&ndash;' + to : '+')));
