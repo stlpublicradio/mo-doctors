@@ -164,10 +164,10 @@ legend.onAdd = function (map) {
 	for (var i = 0; i < grades.length; i++) {
 		from = grades[i];
 		to = grades[i + 1];
-
+console.log(from == 0);
 		labels.push(
 			'<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-			from + (to ? '&ndash;' + to : '+'));
+			((from == 0) ? to : (from + 1) + (to ? '&ndash;' + to : '+')));
 	}
 
 	div.innerHTML = labels.join('<br>');
