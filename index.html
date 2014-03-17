@@ -73,7 +73,7 @@ var northEast = L.latLng(44.878, -78.231),
 
 var map = L.map('map', {scrollWheelZoom: false}).setView([38.494, -90.722], 9).setMaxBounds(bounds);
 
-var tiles = L.mapbox.tileLayer('brentajones.hgag33mf')
+ var tiles = L.mapbox.tileLayer('stlpr.hi06d4b5')
     .addTo(map);
     
 var info = L.control();
@@ -101,14 +101,14 @@ function getColor(d) {
 	                 '#000000';
 }
     
-function style(feature) {
-	return {
-		weight: 1,
-		opacity: .6,
-		color: '#eee',
-		fillOpacity: 0.6,
-		fillColor: getColor(feature.properties.doctors_by)
-		};
+		function style(feature) {
+			return {
+				weight: 1,
+				opacity: .6,
+				color: '#eee',
+				fillOpacity: 0.6,
+				fillColor: getColor(feature.properties.doctors_by)
+				};
 		}
 		
 		function highlightFeature(e) {
